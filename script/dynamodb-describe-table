@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+require_once __DIR__.'/bootstrap.php';
+require_once VENDOR_DIR.'SimpleAmazon/SimpleAmazonDynamoDB.php';
+require_once CONFIG_DIR.'dynamo.php';
+require_once CONFIG_DIR.'aws_sts_key.php';
+
+function main($argc, $argv)
+{
+    $db = Dynamo::conn();
+
+    $r = $db->call('ListTables');
+    $table_names = $r['TableNames'];
+
+    foreach ($table_names as $v) {
+        $r = $db->call('DescribeTable', array('TableName' => $v));
+        print_r($r);
+    }
+
+}
+
+main($argc, $argv);
