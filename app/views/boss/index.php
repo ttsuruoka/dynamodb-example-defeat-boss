@@ -1,12 +1,14 @@
 <h2>ボス出現!!</h2>
 
-(仮のビュー)
-
 <div>
 <?php if ($boss->isDead()): ?>
   <img src="http://dl.dropbox.com/u/154784/demo/boss_nega.jpg" />
 <?php else: ?>
+  <?php if ($boss->getHP() < 300): ?>
+  <img src="http://dl.dropbox.com/u/154784/demo/boss_damaged_1.jpg" />
+  <?php else: ?>
   <img src="http://dl.dropbox.com/u/154784/demo/boss.jpg" />
+  <?php endif ?>
 <?php endif ?>
 </div>
 <div style="font-size:2em;">

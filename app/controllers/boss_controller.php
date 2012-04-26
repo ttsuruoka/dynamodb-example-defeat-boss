@@ -1,7 +1,7 @@
 <?php
 class BossController extends AppController
 {
-    const BOSS_ID = 200;
+    const BOSS_ID = 500;
 
     public function index()
     {
