@@ -1,10 +1,11 @@
 <?php
 class BossController extends AppController
 {
-    const BOSS_ID = 100;
+    const BOSS_ID = 200;
 
     public function index()
     {
+        $player_name = Param::get('name', 'guest');
         $boss = Boss::get(Param::get('boss_id', self::BOSS_ID));
 
         $db = Dynamo::conn();
@@ -15,6 +16,10 @@ class BossController extends AppController
             'Limit' => 10,
         ));
 
+        if ($boss->isDead()) {
+            $last_attacker = $boss->getLastAttacker();
+        }
+
         $items = $r['Items'];
 
         $this->set(get_defined_vars());
@@ -22,6 +27,8 @@ class BossController extends AppController
 
     public function attack()
     {
+        $player_name = Param::get('name', 'guest');
+
         // TODO: ボスにダメージを与える
         $db = Dynamo::conn();
 
@@ -37,10 +44,11 @@ class BossController extends AppController
                 'date_damaged'   => array('N' => (string)$date_damaged),
                 'hp'      => array('N' => (string)$boss->hp),
                 'damage' => array('N' => (string)$damage),
+                'name' => array('S' => (string)$player_name),
             ),
         ));
 
-        $url = APP_URL . '?boss_id=' . $boss->id;
+        $url = APP_URL . '?boss_id=' . $boss->id . '&name=' . $player_name;
         header('Location: ' . $url);
 
         $this->set(get_defined_vars());

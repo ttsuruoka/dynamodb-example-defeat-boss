@@ -6,6 +6,8 @@ class Boss
 
     public static function get($boss_id)
     {
+        $player_name = Param::get('name', 'guest');
+
         $boss = new Boss;
         $boss->id = $boss_id;
 
@@ -36,5 +38,35 @@ class Boss
     public function isDead()
     {
         return $this->getHP() <= 0;
+    }
+
+    public function getLastAttacker()
+    {
+        // barusu_damage で、
+        // 残 HP 0 以下のレコードを昇順に取得
+        // 最初の 1 件目がとどめをさした人
+
+
+        $db = Dynamo::conn();
+        $r = $db->call('Scan', array(
+            'TableName' => 'barusu_damage',
+            'ScanFilter' => array(
+                'boss_id' => array(
+                    'AttributeValueList' => array(array('S' => (string)$this->id)),
+                    'ComparisonOperator' => 'EQ',
+                ),
+                'hp' => array(
+                    'AttributeValueList' => array(array('N' => (string)0)),
+                    'ComparisonOperator' => 'LE',
+                ),
+            ),
+            'Limit' => 1000,
+        ));
+
+        if (empty($r['Items'])) {
+            return null; // とどめをさした人がまだいない
+        }
+
+        return $r['Items'][0]; // とどめをさした人のレコード
     }
 }
