@@ -8,27 +8,14 @@ function main($argc, $argv)
 {
     $tables = array(
         array(
-            'TableName' => 'thread',
+            'TableName' => 'boss_damage',
             'KeySchema' => array(
                 'HashKeyElement' => array(
-                    'AttributeName' => 'id',
-                    'AttributeType' => 'N',
-                ),
-            ),
-            'ProvisionedThroughput' => array(
-                'ReadCapacityUnits' => 5,
-                'WriteCapacityUnits' => 5,
-            ),
-        ),
-        array(
-            'TableName' => 'post',
-            'KeySchema' => array(
-                'HashKeyElement' => array(
-                    'AttributeName' => 'thread_id',
-                    'AttributeType' => 'N',
+                    'AttributeName' => 'boss_id',
+                    'AttributeType' => 'S',
                 ),
                 'RangeKeyElement' => array(
-                    'AttributeName' => 'created',
+                    'AttributeName' => 'date_damaged',
                     'AttributeType' => 'N',
                 ),
             ),

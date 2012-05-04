@@ -6,7 +6,7 @@ require_once CONFIG_DIR.'aws_sts_key.php';
 
 function main($argc, $argv)
 {
-    $tables = array('thread', 'post');
+    $tables = array('boss_damage');
 
     $db = Dynamo::conn();
 

@@ -10,7 +10,7 @@ class BossController extends AppController
 
         $db = Dynamo::conn();
         $r = $db->call('Query', array(
-            'TableName' => 'barusu_damage',
+            'TableName' => 'boss_damage',
             'HashKeyValue' => array('S' => (string)$boss->id),
             'ScanIndexForward' => false,
             'Limit' => 10,
@@ -38,7 +38,7 @@ class BossController extends AppController
         $boss->hp -= $damage; // ダメージを与える
 
         $r = $db->call('PutItem', array(
-            'TableName' => 'barusu_damage',
+            'TableName' => 'boss_damage',
             'Item' => array(
                 'boss_id'      => array('S' => (string)$boss->id),
                 'date_damaged'   => array('N' => (string)$date_damaged),

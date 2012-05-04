@@ -13,7 +13,7 @@ class Boss
 
         $db = Dynamo::conn();
         $r = $db->call('Query', array(
-            'TableName' => 'barusu_damage',
+            'TableName' => 'boss_damage',
             'HashKeyValue' => array('S' => (string)$boss->id),
             'ScanIndexForward' => false,
             'Limit' => 1,
@@ -42,14 +42,14 @@ class Boss
 
     public function getLastAttacker()
     {
-        // barusu_damage で、
+        // boss_damage で、
         // 残 HP 0 以下のレコードを昇順に取得
         // 最初の 1 件目がとどめをさした人
 
 
         $db = Dynamo::conn();
         $r = $db->call('Scan', array(
-            'TableName' => 'barusu_damage',
+            'TableName' => 'boss_damage',
             'ScanFilter' => array(
                 'boss_id' => array(
                     'AttributeValueList' => array(array('S' => (string)$this->id)),
