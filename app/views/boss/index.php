@@ -19,6 +19,7 @@ HP <?php eh($boss->getHP()) ?>/<?php eh($boss->max_hp) ?>
 <?php if ($boss->isDead()): ?>
 <div>
   <p>
+    <?php eh(date('Y-m-d H:i:s', $last_attacker['date_damaged']['N'])) ?> に
     ボスを倒した！！<br />
     倒した人：<?php eh($last_attacker['name']['S']) ?>さん
   </p>
@@ -40,16 +41,14 @@ HP <?php eh($boss->getHP()) ?>/<?php eh($boss->max_hp) ?>
   <div>
     <?php eh(date('Y-m-d H:i:s', $v['date_damaged']['N'])) ?> に
     <?php eh($v['name']['S']) ?>さんが
-    <?php eh($v['damage']['N']) ?> を与えた！
+    <?php eh($v['damage']['N']) ?> を与えた！ (残りHP<?php eh($v['hp']['N']) ?>)
   </div>
 <?php endforeach ?>
 </div>
 
 <br />
 <div>
-    <a class="btn btn-large" href="<?php eh(url('boss/index', array('boss_id' => mt_rand(100, 1000), 'name' => $player_name))) ?>">新しいボスを探しに行く</a>
+    <a class="btn btn-large" href="<?php eh(url('boss/index', array('name' => $player_name))) ?>">新しいボスを探しに行く</a>
 </div>
-
-<br />
 <br />
 

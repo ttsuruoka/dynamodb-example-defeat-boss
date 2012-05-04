@@ -87,7 +87,7 @@ class Boss
                     'ComparisonOperator' => 'LE',
                 ),
             ),
-            'Limit' => 1000,
+            'Limit' => 10000,
         ));
 
         if (empty($r['Items'])) {
