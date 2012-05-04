@@ -47,6 +47,13 @@ Install
     $ cd dynamodb-example-defeat-boss
     $ ./script/dynamodb-create-table
     ```
+    
+    This script creates the following table:
+    ```
+    TableName   | Primary Key Type | Hash Key        | Range Key            | Provisioned Throughput
+    -----------------------------------------------------------------------------------------------------
+    boss_damage | Hash and Range   | boss_id(String) | date_damaged(Number) | Read/Write capacity units:5
+    ```
  
 5. Edit your httpd.conf:
 
