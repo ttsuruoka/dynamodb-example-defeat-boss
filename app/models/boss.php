@@ -42,11 +42,6 @@ class Boss
 
     public function getLastAttacker()
     {
-        // boss_damage で、
-        // 残 HP 0 以下のレコードを昇順に取得
-        // 最初の 1 件目がとどめをさした人
-
-
         $db = Dynamo::conn();
         $r = $db->call('Scan', array(
             'TableName' => 'boss_damage',
@@ -64,9 +59,9 @@ class Boss
         ));
 
         if (empty($r['Items'])) {
-            return null; // とどめをさした人がまだいない
+            return null; // if boss is not dead yet
         }
 
-        return $r['Items'][0]; // とどめをさした人のレコード
+        return $r['Items'][0];
     }
 }
