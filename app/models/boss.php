@@ -90,6 +90,8 @@ class Boss
             'Limit' => 10000,
         ));
 
+        // TODO: need LastEvaluatedKey support
+
         if (empty($r['Items'])) {
             return null; // if boss is not dead yet
         }
