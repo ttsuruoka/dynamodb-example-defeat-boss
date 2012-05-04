@@ -52,9 +52,7 @@
           No queries.
           <?php endif ?>
         </div>
-        <?php if (!ENV_PRODUCTION): ?>
         <p><?php eh(round(microtime(true) - TIME_START, 3)) ?>s</p>
-        <?php endif ?>
       </footer>
     </div>
 

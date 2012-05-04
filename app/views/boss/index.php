@@ -48,23 +48,6 @@ HP <?php eh($boss->getHP()) ?>/<?php eh($boss->max_hp) ?>
     <a class="btn btn-large" href="<?php eh(url('boss/index', array('boss_id' => mt_rand(100, 1000), 'name' => $player_name))) ?>">新しいボスを探しに行く</a>
 </div>
 
-
-<br />
-<br />
-<?php if (isset($last_attacker)): ?>
-<?php /*
-<?php $items = $last_attacker['Items'] ?>
-<?php foreach ($items as $v): ?>
-id=<?php eh($v['boss_id']['S']) ?>,hp=<?php eh($v['hp']['N']) ?><br />
-<?php endforeach ?>
- */ ?>
-<?php /*
-<pre>
-<?php eh(var_dump($last_attacker))?>
-</pre>
- */ ?>
-<?php endif ?>
-
 <br />
 <br />
 
