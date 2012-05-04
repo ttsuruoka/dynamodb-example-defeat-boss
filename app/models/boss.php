@@ -40,6 +40,38 @@ class Boss
         return $this->getHP() <= 0;
     }
 
+    public function attacked($player_name)
+    {
+        $date_damaged = Time::unix();
+        $damage = mt_rand(50, 200);
+        $this->hp -= $damage;
+
+        $db = Dynamo::conn();
+        $r = $db->call('PutItem', array(
+            'TableName' => 'boss_damage',
+            'Item' => array(
+                'boss_id'      => array('S' => (string)$this->id),
+                'date_damaged'   => array('N' => (string)$date_damaged),
+                'hp'      => array('N' => (string)$this->hp),
+                'damage' => array('N' => (string)$damage),
+                'name' => array('S' => (string)$player_name),
+            ),
+        ));
+    }
+
+    public function getRecentDamages($count = 10)
+    {
+        $db = Dynamo::conn();
+        $r = $db->call('Query', array(
+            'TableName' => 'boss_damage',
+            'HashKeyValue' => array('S' => (string)$this->id),
+            'ScanIndexForward' => false,
+            'Limit' => $count,
+        ));
+
+        return $r['Items'];
+    }
+
     public function getLastAttacker()
     {
         $db = Dynamo::conn();

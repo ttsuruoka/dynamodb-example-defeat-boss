@@ -11,15 +11,17 @@
   <?php endif ?>
 <?php endif ?>
 </div>
-<div style="font-size:2em;">
+
+<div style="font-size:2em;line-height:1.2em;">
 HP <?php eh($boss->getHP()) ?>/<?php eh($boss->max_hp) ?>
 </div>
-<br />
 
 <?php if ($boss->isDead()): ?>
 <div>
-  <p>ボスを倒した！！</p>
-  <p>倒した人：<?php eh($last_attacker['name']['S']) ?>さん</p>
+  <p>
+    ボスを倒した！！<br />
+    倒した人：<?php eh($last_attacker['name']['S']) ?>さん
+  </p>
 </div>
 <?php endif ?>
 <br />
@@ -30,11 +32,11 @@ HP <?php eh($boss->getHP()) ?>/<?php eh($boss->max_hp) ?>
 <br />
 <br />
 
-<?php if (count($items)): ?>
+<?php if (count($recent_damages)): ?>
 <h3>最近のダメージ</h3>
 <?php endif ?>
 <div>
-<?php foreach ($items as $v): ?>
+<?php foreach ($recent_damages as $v): ?>
   <div>
     <?php eh(date('Y-m-d H:i:s', $v['date_damaged']['N'])) ?> に
     <?php eh($v['name']['S']) ?>さんが
